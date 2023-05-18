@@ -15,6 +15,6 @@ response = requests.get(url2)
 with open('dataCollect/Population_Data.geojson', 'wb') as file:
     file.write(response.content)
 # third dataset output
-df1 = pd.read_csv(url1, delimiter=',')
+df1 = pd.read_json(url3)
 df1.to_csv('dataCollect/Population_Data.csv', header = True, index = False)
 df1.to_json('dataCollect/Population_Data.json')
