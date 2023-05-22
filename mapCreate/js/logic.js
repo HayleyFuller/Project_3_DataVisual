@@ -38,6 +38,42 @@ d3.json(queryUrl).then(function(data) {
   createFeatures(elecVehicleData);
 });
 
+///////////////////////////////////////////////////////////////////
+// Make filter
+fetch(queryUrl)
+  .then(response => response.json())
+  .then(data => {
+    const features = data.features;
+    const uniqueMakes = new Set();
+    const uniqueEv_type = new Set();
+
+    features.forEach(feature => {
+      const properties = feature.properties;
+      const make = properties.make;
+      const ev_type = properties.ev_type;
+      uniqueMakes.add(make);
+      uniqueEv_type.add(ev_type);
+    });
+
+    const makerFilter = document.getElementById('makerFilter-option');
+    uniqueMakes.forEach(make => {
+      const option = document.createElement('option');
+      option.value = make;
+      option.text = make;
+      makerFilter.appendChild(option);
+    });
+    const ev_typeFilter = document.getElementById('ev_typeFilter-option');
+    uniqueEv_type.forEach(ev_type => {
+      const option = document.createElement('option');
+      option.value =ev_type;
+      option.text = ev_type;
+      ev_typeFilter.appendChild(option);
+    });
+  })
+  .catch(error => console.error('Error:', error));
+
+////////////////////////////////////////////////////////////////
+// Create main map
 function createFeatures(elecVehicleData) { 
   // Create the feature layer and set the style and interaction
   elecVehicle = L.geoJSON(elecVehicleData, {
@@ -56,27 +92,43 @@ function createFeatures(elecVehicleData) {
       });
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " +feature.properties.model + "</p><hr><p>" + "Year: " + feature.properties.model_year + "</p>");
+      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " +feature.properties.model + "</p><hr><p>" + "Ev_type: " + feature.properties.ev_type + "</p>");
     }
   }).addTo(map);
+  updateMap();
 }
 
+/////////////////////////////////////////////////////////////////
+// Update map
 function updateMap() {
   // select
-  var selectedValue = document.getElementById('filter-option').value;
-  
+  var makerSelectedValue = document.getElementById('makerFilter-option').value;
+  var ev_typeSelectedValue = document.getElementById('ev_typeFilter-option').value;
   // remove
   if (map.hasLayer(elecVehicle)) {
     map.removeLayer(elecVehicle);
   }
   
   // build filter
-  var filteredFeatures = elecVehicleData.filter(function(feature) {
-    return feature.properties.make === selectedValue;
-  });
-
+  if(makerSelectedValue !== "" && ev_typeSelectedValue !== "") {
+    var filteredFeatures = elecVehicleData.filter(function(feature) {
+      return feature.properties.make === makerSelectedValue && feature.properties.ev_type === ev_typeSelectedValue;
+    });
+  }
+  else if(makerSelectedValue === "" && ev_typeSelectedValue !== ""){
+    var filteredFeatures = elecVehicleData.filter(function(feature) {
+      return feature.properties.ev_type === ev_typeSelectedValue;
+    });
+  }
+  else if(makerSelectedValue !== "" && ev_typeSelectedValue === ""){
+    var filteredFeatures = elecVehicleData.filter(function(feature) {
+      return feature.properties.make === makerSelectedValue;
+    });
+  }
+  else{
+    var filteredFeatures = elecVehicleData
+  }
   // create new map
-  if (filteredFeatures.length > 0) {
   elecVehicle = L.geoJSON(filteredFeatures, {
     pointToLayer: function (feature, latlng) {
       var colorIndex = feature.properties.make;
@@ -92,29 +144,7 @@ function updateMap() {
       });
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " +feature.properties.model + "</p><hr><p>" + "Year: " + feature.properties.model_year + "</p>");
+      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " +feature.properties.model + "</p><hr><p>" + "Ev_type: " + feature.properties.ev_type + "</p>");
     }
   }).addTo(map);
- }// select back to all vehicle
-  else {
-    elecVehicle = L.geoJSON( elecVehicleData, {
-      pointToLayer: function (feature, latlng) {
-
-        var colorIndex = feature.properties.make;
-
-      var color = colorMappings[colorIndex] || "#wcd123"; // default
-        
-        return L.circleMarker(latlng, {
-          color: color,
-          weight: 0.3,
-          radius : 6,
-          opacity: 0.5,
-          fillOpacity: 0.5
-        });
-      },
-      onEachFeature: function (feature, layer) {
-        layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " +feature.properties.model + "</p><hr><p>" + "Year: " + feature.properties.model_year + "</p>");
-      }
-    }).addTo(map);
-  }
-}
+ }
