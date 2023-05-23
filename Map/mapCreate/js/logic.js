@@ -137,12 +137,12 @@ function updateMap() {
 
       var color = colorMappings[colorIndex] || "#wcd123"; // default
 
-      return L.circleMarker(latlng, {
+      return L.marker(latlng, {
         color: color,
         weight: 0.3,
         radius : 6,
         opacity: 0.5,
-        fillOpacity: 0.5
+        fillOpacity: 0.5,
       });
     },
     onEachFeature: function (feature, layer) {

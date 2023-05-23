@@ -36,6 +36,7 @@ select {
   margin: 5px 0;
 }
 
+/* Style the custom marker icon */
 .custom-marker-icon {
   text-align: center;
   line-height: 32px;
@@ -65,7 +66,7 @@ select {
 }
 
 /* Style the individual markers (circle style) */
-.leaflet-marker-icon {
+.leaflet-marker-icon.custom-marker-icon {
   border: 2px solid #fff;
   background-color: #ff5733; /* Replace with your desired color */
   border-radius: 50%;
@@ -73,7 +74,5 @@ select {
   height: 12px;
   margin: -6px -6px;
 }
-
-
 
 /* Add any additional custom styling based on your design preferences */
