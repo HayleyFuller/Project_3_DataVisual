@@ -238,6 +238,7 @@ function updateMap() {
     filteredFeatures = filteredFeatures
   };
   // filter by city/county
+
 if (cityCountySelectedValue !== "") {
   filteredFeatures = filteredFeatures.filter(function (feature) {
     return (
@@ -246,9 +247,18 @@ if (cityCountySelectedValue !== "") {
     );
   });
   }
-
   
-  
+  var text = document.getElementById("text-container");
+    if(cityCountySelectedValue === "" ) {
+      cityCountySelectedValue = "Washington" ;
+    };
+    if(yearSelectedValue === "" ) {
+      yearSelectedValue = "all years" ;
+    };
+    if(ev_typeSelectedValue === "" ) {
+      ev_typeSelectedValue = "" ;
+    };
+      text.textContent = `In ${cityCountySelectedValue}, we find ${filteredFeatures.length} ${ev_typeSelectedValue} ${makerSelectedValue} elecVehicle car(s) built in ${yearSelectedValue}` ;
   // create new map
   elecVehicle = L.geoJSON(filteredFeatures, {
     pointToLayer: function (feature, latlng) {
@@ -268,4 +278,5 @@ if (cityCountySelectedValue !== "") {
       layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " + feature.properties.model + "</p><hr><p>"  + "Ev_type: " + feature.properties.ev_type + "</p><hr><p>" + "Year: " + feature.properties.model_year+ "</p><hr><p>" + "Location: " + feature.properties.city + " / " + feature.properties.county + "</p>");
     }
   }).addTo(map);
+
  }
