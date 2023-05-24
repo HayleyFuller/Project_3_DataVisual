@@ -24,7 +24,7 @@ fetch('https://data.wa.gov/resource/f6w7-q2d2.json?$limit=1000')
 
   // Create the graph using Chart.js
   const ctx = document.getElementById('graph').getContext('2d');
-  new Chart(ctx, {
+  const chart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: labels,
@@ -65,5 +65,52 @@ fetch('https://data.wa.gov/resource/f6w7-q2d2.json?$limit=1000')
         }
       }
     }
+  });
+
+  // Create the year filter
+  const yearFilter = document.getElementById('year-filter');
+
+  // Get unique years from the data
+  const uniqueYears = [...new Set(data.map(item => item.model_year))];
+
+  // Add options to the dropdown filter
+  uniqueYears.forEach(year => {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearFilter.appendChild(option);
+  });
+
+  // Add event listener to the year filter
+  yearFilter.addEventListener('change', () => {
+    const selectedYear = yearFilter.value;
+
+    // Filter data based on selected year
+    const filteredData = selectedYear === 'all' ? data : data.filter(item => item.model_year === selectedYear);
+
+    // Prepare filtered data for the graph
+    const filteredMakeCount = {};
+    filteredData.forEach(item => {
+      const make = item.make;
+
+      if (!filteredMakeCount[make]) {
+        filteredMakeCount[make] = 0;
+      }
+
+      filteredMakeCount[make]++;
+    });
+
+    // Sort makes by occurrence in descending order
+    const filteredSortedMakes = Object.keys(filteredMakeCount).sort((a, b) => filteredMakeCount[b] - filteredMakeCount[a]);
+    const filteredTopThreeMakes = filteredSortedMakes.slice(0, 3);
+
+    // Extract data for the top three makes
+    const filteredLabels = filteredTopThreeMakes;
+    const filteredDataPoints = filteredTopThreeMakes.map(make => filteredMakeCount[make]);
+
+    // Update the graph with the filtered data
+    chart.data.labels = filteredLabels;
+    chart.data.datasets[0].data = filteredDataPoints;
+    chart.update();
   });
 });
