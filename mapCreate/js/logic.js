@@ -39,7 +39,7 @@ d3.json(queryUrl).then(function(data) {
 });
 
 ///////////////////////////////////////////////////////////////////
-// Make filter
+// Make total filter
 fetch(queryUrl)
   .then(response => response.json())
   .then(data => {
@@ -124,7 +124,7 @@ function createFeatures(elecVehicleData) {
 }
 
 //////////////////////////////////////////////////////////////////
-// update Year and City/County filter
+// update Year and City/County filter after select maker and ev_type
 function updateYearLocation() {
   var makerSelectedValue = document.getElementById('makerFilter-option').value;
   var ev_typeSelectedValue = document.getElementById('ev_typeFilter-option').value;
@@ -247,7 +247,7 @@ if (cityCountySelectedValue !== "") {
     );
   });
   }
-  
+  // update text container
   var text = document.getElementById("text-container");
     if(cityCountySelectedValue === "" ) {
       cityCountySelectedValue = "Washington" ;
