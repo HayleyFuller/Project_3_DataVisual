@@ -31,7 +31,7 @@ fetch('https://data.wa.gov/resource/f6w7-q2d2.json?$limit=1000')
       datasets: [{
         label: 'No. Vehicles',
         data: dataPoints,
-        backgroundColor: ['green', 'orange', 'yellow'],
+        backgroundColor: ['palegreen', 'grey', 'paleturquoise'],
         borderColor: 'rgba(0, 0, 0, 1)',
         borderWidth: 1
       }]

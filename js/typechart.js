@@ -37,7 +37,7 @@ fetch('https://data.wa.gov/resource/f6w7-q2d2.json?$limit=1000')
       datasets: Object.keys(datasets).map((evType, index) => ({
         label: evType,
         data: labels.map(modelYear => datasets[evType][modelYear] || 0),
-        backgroundColor: index % 2 === 0 ? 'green' : 'orange',
+        backgroundColor: index % 2 === 0 ? 'palegreen' : 'grey',
         borderColor: 'rgba(0, 0, 0, 1)',
         borderWidth: 1
       }))
