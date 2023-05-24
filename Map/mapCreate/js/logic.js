@@ -74,27 +74,25 @@ fetch(queryUrl)
 
 ////////////////////////////////////////////////////////////////
 // Create main map
-function createFeatures(elecVehicleData) {
+function createFeatures(elecVehicleData) { 
+  // Create the feature layer and set the style and interaction
   elecVehicle = L.geoJSON(elecVehicleData, {
     pointToLayer: function (feature, latlng) {
-      var colorIndex = feature.properties.make;
-      var color = colorMappings[colorIndex] || "#wcd123"; // default
-      
-      // Define the custom icon
-      var icon = L.divIcon({
-        className: 'custom-marker-icon',
-        html: '<i class="icon-map-marker" style="color: ' + color + ';"></i>',
-        iconSize: [32, 32], // Adjust the size of the icon as needed
-        iconAnchor: [16, 32], // Adjust the anchor point of the icon as needed
-      });
 
-      return L.marker(latlng, {
-        icon: icon,
+      var colorIndex = feature.properties.make;
+
+      var color = colorMappings[colorIndex] || "#wcd123"; // default
+
+      return L.circleMarker(latlng, {
+        color: color,
+        weight: 0.3,
+        radius : 6,
         opacity: 0.5,
+        fillOpacity: 0.5
       });
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " + feature.properties.model + "</p><hr><p>" + "Ev_type: " + feature.properties.ev_type + "</p>");
+      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " +feature.properties.model + "</p><hr><p>" + "Ev_type: " + feature.properties.ev_type + "</p>");
     }
   }).addTo(map);
   updateMap();
@@ -137,12 +135,12 @@ function updateMap() {
 
       var color = colorMappings[colorIndex] || "#wcd123"; // default
 
-      return L.marker(latlng, {
+      return L.circleMarker(latlng, {
         color: color,
         weight: 0.3,
         radius : 6,
         opacity: 0.5,
-        fillOpacity: 0.5,
+        fillOpacity: 0.5
       });
     },
     onEachFeature: function (feature, layer) {

@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Leaflet Map</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>Leaflet?</title>
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -18,18 +17,18 @@
 </head>
 
 <body>
-  <div id="filters">
-    <select id="makerFilter-option" onchange="updateMap()">
-      <option value="">All Vehicles</option>
-    </select>
-    <select id="ev_typeFilter-option" onchange="updateMap()">
-      <option value="">All EV Types</option>
-    </select>
-  </div>
+
+  <select id="makerFilter-option" onchange="updateMap()">
+    <option value="">All Vehicles</option>
+  </select>
+  <select id="ev_typeFilter-option" onchange="updateMap()">
+    <option value="">All Ev_type</option>
+  </select>
 
   <!-- The div that holds our map -->
   <div id="map"></div>
-
+  <!-- selected -->
+  
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
@@ -38,6 +37,7 @@
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <!-- Our JavaScript -->
   <script type="text/javascript" src="js/logic.js"></script>
+
 </body>
 
 </html>
