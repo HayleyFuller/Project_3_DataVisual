@@ -18,13 +18,23 @@
 
 <body>
 
-  <select id="makerFilter-option" onchange="updateMap()">
+  <select id="makerFilter-option" onchange="updateYearLocation();">
     <option value="">All Vehicles</option>
   </select>
-  <select id="ev_typeFilter-option" onchange="updateMap()">
+  
+  <select id="ev_typeFilter-option" onchange="updateYearLocation();">
     <option value="">All Ev_type</option>
   </select>
+  
+  <select id="yearFilter-option">
+    <option value="">All Year</option>
+  </select>
 
+  <select id="cityCountyFilter-option">
+    <option value="">All City/County</option>
+  </select>
+
+  <button onclick="updateMap()">Search</button>
   <!-- The div that holds our map -->
   <div id="map"></div>
   <!-- selected -->
