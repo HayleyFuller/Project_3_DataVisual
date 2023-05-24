@@ -110,24 +110,25 @@ function updateMap() {
   }
   
   // build filter
-  if(makerSelectedValue !== "" && ev_typeSelectedValue !== "") {
-    var filteredFeatures = elecVehicleData.filter(function(feature) {
-      return feature.properties.make === makerSelectedValue && feature.properties.ev_type === ev_typeSelectedValue;
-    });
-  }
-  else if(makerSelectedValue === "" && ev_typeSelectedValue !== ""){
-    var filteredFeatures = elecVehicleData.filter(function(feature) {
-      return feature.properties.ev_type === ev_typeSelectedValue;
-    });
-  }
-  else if(makerSelectedValue !== "" && ev_typeSelectedValue === ""){
+  // filter by marker
+  if(makerSelectedValue !== "") {
     var filteredFeatures = elecVehicleData.filter(function(feature) {
       return feature.properties.make === makerSelectedValue;
     });
   }
   else{
     var filteredFeatures = elecVehicleData
+  };
+  // filter by ev_type
+  if(ev_typeSelectedValue !== "") {
+    filteredFeatures = filteredFeatures.filter(function(feature) {
+      return feature.properties.ev_type === ev_typeSelectedValue;
+    });
   }
+  else{
+    filteredFeatures = filteredFeatures
+  };
+  
   // create new map
   elecVehicle = L.geoJSON(filteredFeatures, {
     pointToLayer: function (feature, latlng) {
