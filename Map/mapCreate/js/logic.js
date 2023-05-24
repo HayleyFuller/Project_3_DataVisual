@@ -1,7 +1,7 @@
 // logic.js
 
 // Initialize the map
-var map = L.map('map').setView([47.238138, -120.289762], 8);
+var map = L.map('map').setView([47.238138, -120.289762], 7);
 
 // Add a base layer (e.g., OpenStreetMap)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -22,10 +22,10 @@ var colorMappings = {
   'AUDI': "#ff00aa",        // PINK
   'FORD': "#5500ff",        // PURPLE
   'KIA': "#ffff00",         // YELLOW
-  'BMW': "#f5f5f5",         // WHITE
-  'CHEVROLET': "#ffff00",   // YELLOW
+  'BMW': "#000000",         // red
+  'CHEVROLET': "#8c0044",   // Pink
   'JEEP': "#470024",        // DEEP RED
-  'CHRYSLER': "#fff4f9",    // Very pale (mostly white) pink
+  'CHRYSLER': "#66dd00",    // Very green
   'TOYOTA': "#00ffff",      // Pure (or mostly pure) cyan.
   'PORSCHE': "#274e13",     // DEEP GREEN
   'VOLVO': "#0f3c64",       // DEEP BLUE
@@ -46,13 +46,21 @@ fetch(queryUrl)
     const features = data.features;
     const uniqueMakes = new Set();
     const uniqueEv_type = new Set();
+    const uniqueYear = new Set();
+    const uniqueCityCounty = new Set();
 
     features.forEach(feature => {
       const properties = feature.properties;
       const make = properties.make;
       const ev_type = properties.ev_type;
+      const year = properties.model_year;
+      const city = properties.city;
+      const county = properties.county;
       uniqueMakes.add(make);
       uniqueEv_type.add(ev_type);
+      uniqueYear.add(year);
+      uniqueCityCounty.add(city);
+      uniqueCityCounty.add(county);
     });
 
     const makerFilter = document.getElementById('makerFilter-option');
@@ -62,12 +70,29 @@ fetch(queryUrl)
       option.text = make;
       makerFilter.appendChild(option);
     });
+
     const ev_typeFilter = document.getElementById('ev_typeFilter-option');
     uniqueEv_type.forEach(ev_type => {
       const option = document.createElement('option');
       option.value =ev_type;
       option.text = ev_type;
       ev_typeFilter.appendChild(option);
+    });
+
+    const yearFilter = document.getElementById('yearFilter-option');
+    uniqueYear.forEach(year => {
+      const option = document.createElement('option');
+      option.value =year;
+      option.text = year;
+      yearFilter.appendChild(option);
+    });
+
+    const cityCountyFilter = document.getElementById('cityCountyFilter-option');
+    uniqueCityCounty.forEach(cityCounty => {
+      const option = document.createElement('option');
+      option.value =cityCounty;
+      option.text = cityCounty;
+      cityCountyFilter.appendChild(option);
     });
   })
   .catch(error => console.error('Error:', error));
@@ -88,14 +113,86 @@ function createFeatures(elecVehicleData) {
         weight: 0.3,
         radius : 6,
         opacity: 0.5,
-        fillOpacity: 0.5
+        fillOpacity: 0.6
       });
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " +feature.properties.model + "</p><hr><p>" + "Ev_type: " + feature.properties.ev_type + "</p>");
+      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " + feature.properties.model + "</p><hr><p>"  + "Ev_type: " + feature.properties.ev_type + "</p><hr><p>" + "Year: " + feature.properties.model_year+ "</p><hr><p>" + "Location: " + feature.properties.city + " / " + feature.properties.county + "</p>");
     }
   }).addTo(map);
   updateMap();
+}
+
+//////////////////////////////////////////////////////////////////
+// update Year and City/County filter
+function updateYearLocation() {
+  var makerSelectedValue = document.getElementById('makerFilter-option').value;
+  var ev_typeSelectedValue = document.getElementById('ev_typeFilter-option').value;
+  var cityCountySelectedValue = document.getElementById('cityCountyFilter-option').value;
+
+  if(makerSelectedValue !== "") {
+    var filteredFeatures = elecVehicleData.filter(function(feature) {
+      return feature.properties.make === makerSelectedValue;
+    });
+  }
+  else{
+    var filteredFeatures = elecVehicleData
+  };
+  if(ev_typeSelectedValue !== "") {
+    filteredFeatures = filteredFeatures.filter(function(feature) {
+      return feature.properties.ev_type === ev_typeSelectedValue;
+    });
+  }
+  else{
+    filteredFeatures = filteredFeatures
+  };
+  if (cityCountySelectedValue !== "") {
+    filteredFeatures = filteredFeatures.filter(function (feature) {
+      return (
+        feature.properties.city === cityCountySelectedValue ||
+        feature.properties.county === cityCountySelectedValue
+      );
+    });
+  };
+
+  const newYear = new Set();
+  const newCityCounty = new Set();
+
+  filteredFeatures.forEach(feature => {
+    const year = feature.properties.model_year;
+    const city = feature.properties.city;
+    const county = feature.properties.county;
+    newYear.add(year)
+    newCityCounty.add(city);
+    newCityCounty.add(county);
+  });
+
+  const yearFilter= document.getElementById('yearFilter-option');
+    yearFilter.innerHTML = '';
+    const option1 = document.createElement('option');
+    option1.value = "";
+    option1.text = "All Year";
+    yearFilter.appendChild(option1);
+    newYear.forEach(year => {
+      const option = document.createElement('option');
+      option.value = year;
+      option.text = year;
+      yearFilter.appendChild(option);
+    });
+
+    const cityCountyFilter= document.getElementById('cityCountyFilter-option');
+    cityCountyFilter.innerHTML = '';
+    const option2 = document.createElement('option');
+    option2.value = "";
+    option2.text = "All City/County";
+    cityCountyFilter.appendChild(option2);
+    newCityCounty.forEach(cityCounty => {
+      const option = document.createElement('option');
+      option.value = cityCounty;
+      option.text = cityCounty;
+      cityCountyFilter.appendChild(option);
+    });
+    
 }
 
 /////////////////////////////////////////////////////////////////
@@ -104,30 +201,54 @@ function updateMap() {
   // select
   var makerSelectedValue = document.getElementById('makerFilter-option').value;
   var ev_typeSelectedValue = document.getElementById('ev_typeFilter-option').value;
+  var yearSelectedValue = document.getElementById('yearFilter-option').value;
+  var cityCountySelectedValue = document.getElementById('cityCountyFilter-option').value;
+
   // remove
   if (map.hasLayer(elecVehicle)) {
     map.removeLayer(elecVehicle);
   }
   
   // build filter
-  if(makerSelectedValue !== "" && ev_typeSelectedValue !== "") {
-    var filteredFeatures = elecVehicleData.filter(function(feature) {
-      return feature.properties.make === makerSelectedValue && feature.properties.ev_type === ev_typeSelectedValue;
-    });
-  }
-  else if(makerSelectedValue === "" && ev_typeSelectedValue !== ""){
-    var filteredFeatures = elecVehicleData.filter(function(feature) {
-      return feature.properties.ev_type === ev_typeSelectedValue;
-    });
-  }
-  else if(makerSelectedValue !== "" && ev_typeSelectedValue === ""){
+  // filter by marker
+  if(makerSelectedValue !== "") {
     var filteredFeatures = elecVehicleData.filter(function(feature) {
       return feature.properties.make === makerSelectedValue;
     });
   }
   else{
     var filteredFeatures = elecVehicleData
+  };
+  // filter by ev_type
+  if(ev_typeSelectedValue !== "") {
+    filteredFeatures = filteredFeatures.filter(function(feature) {
+      return feature.properties.ev_type === ev_typeSelectedValue;
+    });
   }
+  else{
+    filteredFeatures = filteredFeatures
+  };
+  // filter by year
+  if(yearSelectedValue !== "") {
+    filteredFeatures = filteredFeatures.filter(function(feature) {
+      return feature.properties.model_year === yearSelectedValue;
+    });
+  }
+  else{
+    filteredFeatures = filteredFeatures
+  };
+  // filter by city/county
+if (cityCountySelectedValue !== "") {
+  filteredFeatures = filteredFeatures.filter(function (feature) {
+    return (
+      feature.properties.city === cityCountySelectedValue ||
+      feature.properties.county === cityCountySelectedValue
+    );
+  });
+  }
+
+  
+  
   // create new map
   elecVehicle = L.geoJSON(filteredFeatures, {
     pointToLayer: function (feature, latlng) {
@@ -140,11 +261,11 @@ function updateMap() {
         weight: 0.3,
         radius : 6,
         opacity: 0.5,
-        fillOpacity: 0.5
+        fillOpacity: 0.6
       });
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " +feature.properties.model + "</p><hr><p>" + "Ev_type: " + feature.properties.ev_type + "</p>");
+      layer.bindPopup("<h3>" + "VEHICLE ID: " + feature.properties.dol_vehicle_id + "</h3><hr><p>" + "MODEL: " + feature.properties.make + " / " + feature.properties.model + "</p><hr><p>"  + "Ev_type: " + feature.properties.ev_type + "</p><hr><p>" + "Year: " + feature.properties.model_year+ "</p><hr><p>" + "Location: " + feature.properties.city + " / " + feature.properties.county + "</p>");
     }
   }).addTo(map);
  }
