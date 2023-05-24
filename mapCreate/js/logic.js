@@ -258,7 +258,7 @@ if (cityCountySelectedValue !== "") {
     if(ev_typeSelectedValue === "" ) {
       ev_typeSelectedValue = "" ;
     };
-      text.textContent = `In ${cityCountySelectedValue}, we find ${filteredFeatures.length} ${ev_typeSelectedValue} ${makerSelectedValue} elecVehicle car(s) built in ${yearSelectedValue}` ;
+      text.textContent = `In ${cityCountySelectedValue}, we find ${filteredFeatures.length} ${ev_typeSelectedValue} ${makerSelectedValue} elecVehicle car(s) built in ${yearSelectedValue}！` ;
   // create new map
   elecVehicle = L.geoJSON(filteredFeatures, {
     pointToLayer: function (feature, latlng) {
