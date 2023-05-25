@@ -1,0 +1,238 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<!-- County selector List -->
+<select name="County-WA" id="County-WA"> <!-- Washington-->
+    <option value="0">County in WA</option>
+    <option class="county-search" value="1">Adams</option>
+    <option class="county-search" value="2">Asotin</option>
+    <option class="county-search" value="3">Benton</option>
+    <option class="county-search" value="4">Chelan</option>
+    <option class="county-search" value="5">Clallam</option>
+    <option class="county-search" value="6">Clark</option>
+    <option class="county-search" value="7">Columbia</option>
+    <option class="county-search" value="8">Cowlitz</option>
+    <option class="county-search" value="9">Douglas</option>
+    <option class="county-search" value="10">Ferry</option>
+    <option class="county-search" value="11">Franklin</option>
+    <option class="county-search" value="12">Garfiled</option>
+    <option class="county-search" value="13">Grays Harbor</option>
+    <option class="county-search" value="14">Island</option>
+    <option class="county-search" value="15">Jefferson</option>
+    <option class="county-search" value="16">King</option>
+    <option class="county-search" value="17">Kitsap</option>
+    <option class="county-search" value="18">Kittitas</option>
+    <option class="county-search" value="19">Klickitat</option>
+    <option class="county-search" value="20">Lewis</option>
+    <option class="county-search" value="21">Lincoln</option>
+    <option class="county-search" value="22">Mason</option>
+    <option class="county-search" value="23">Okanogan</option>
+    <option class="county-search" value="24">Pacific</option>
+    <option class="county-search" value="25">Pend Orellie</option>
+    <option class="county-search" value="26">Pierce</option>
+    <option class="county-search" value="27">San Juan</option>
+    <option class="county-search" value="28">Skagit</option>
+    <option class="county-search" value="29">Skamania</option>
+    <option class="county-search" value="30">Snohomish</option>
+    <option class="county-search" value="31">Spokane</option>
+    <option class="county-search" value="32">Stevens</option>
+    <option class="county-search" value="33">Thurston</option>
+    <option class="county-search" value="34">Wahkiakum</option>
+    <option class="county-search" value="35">Walla Walla</option>
+    <option class="county-search" value="36">Whatcom</option>
+    <option class="county-search" value="37">Whitman</option>
+    <option class="county-search" value="38">Yakima</option>
+  </select>
+
+<!-- Vehicle Brand Selector List -->
+<select name="make" id="make">
+    <option class="vehicle-search" value="0">Make</option>
+    <option class="vehicle-search" value="1">AUDI</option>
+    <option class="vehicle-search" value="1">AZURE DYNAMICS</option>
+    <option class="vehicle-search" value="2">BENTLEY</option>
+    <option class="vehicle-search" value="3">BMW</option>
+    <option class="vehicle-search" value="4">CADILLAC</option>
+    <option class="vehicle-search" value="5">CHEVROLET</option>
+    <option class="vehicle-search" value="6">CHRYSLER</option>
+    <option class="vehicle-search" value="7">FIAT</option>
+    <option class="vehicle-search" value="8">FISKER</option>
+    <option class="vehicle-search" value="9">FORD</option>
+    <option class="vehicle-search" value="10">GENESIS</option>
+    <option class="vehicle-search" value="11">HONDA</option>
+    <option class="vehicle-search" value="12">HYUNDAI</option>
+    <option class="vehicle-search" value="13">JAGUAR</option>
+    <option class="vehicle-search" value="14">JEEP</option>
+    <option class="vehicle-search" value="15">KIA</option>
+    <option class="vehicle-search" value="16">LAND ROVER</option>
+    <option class="vehicle-search" value="17">LEXUS</option>
+    <option class="vehicle-search" value="18">LINCOLN</option>
+    <option class="vehicle-search" value="19">LUCID</option>
+    <option class="vehicle-search" value="20">MERCEDES-BENZ</option>
+    <option class="vehicle-search" value="21">MINI</option>
+    <option class="vehicle-search" value="22">MITSUBISHI</option>
+    <option class="vehicle-search" value="23">NISSAN</option>
+    <option class="vehicle-search" value="24">POLESTAR</option>
+    <option class="vehicle-search" value="25">PORSCHE</option>
+    <option class="vehicle-search" value="26">RIVIAN</option>
+    <option class="vehicle-search" value="27">SMART</option>
+    <option class="vehicle-search" value="28">SUBARU</option>
+    <option class="vehicle-search" value="29">TESLA</option>
+    <option class="vehicle-search" value="30">TH!NK</option>
+    <option class="vehicle-search" value="31">TOYOTA</option>
+    <option class="vehicle-search" value="32">VOLKSWAGEN</option>
+    <option class="vehicle-search" value="33">VOLVO</option>
+    <option class="vehicle-search" value="34">WHEEGO ELECTRIC CARS</option>
+  </select>
+<!-- Vehicle Model List -->
+<select name="model" id="model">
+    <option value="0">Model</option>
+    <option class="318i" value="1">500</option>
+    <option class="lanos" value="2">918</option>
+    <option class="courier" value="3">330E</option>
+    <option class="falcon" value="4">530E</option>
+    <option class="festiva" value="5">740E</option>
+    <option class="fiesta" value="6">745E</option>
+    <option class="focus" value="7">745LE</option>
+    <option class="laser" value="8">A3</option>
+    <option class="ranger" value="9">A7</option>
+    <option class="territory" value="10">A8 E/option>
+    <option class="astra" value="11">ACCORD</option>
+    <option class="barina" value="12">AIR</option>
+    <option class="captiva" value="13">ARIY</option>
+    <option class="colorado" value="14">AVIATOR</option>
+    <option class="commodore" value="15">B-CLASS</option>
+    <option class="cruze" value="16">BENTAYGA</option>
+    <option class="rodeo" value="17">BOLT EUV</option>
+    <option class="viva" value="18">BOLT EV</option>
+    <option class="viva" value="19">BZ4X</option>
+    <option class="viva" value="20">C40</option>
+    <option class="viva" value="21">CAYENNE</option>
+    <option class="viva" value="22">C-CLASS</option>
+    <option class="viva" value="23">CIT</option>
+    <option class="viva" value="24">CLARITY</option>
+    <option class="viva" value="25">C-MAX</option>
+    <option class="viva" value="26">CORSAI</option>
+    <option class="viva" value="27">COUNTRYMAN</option>
+    <option class="viva" value="28">CROSSTREK</option>
+    <option class="viva" value="29">CT6</option>
+    <option class="viva" value="30">EDV</option>
+    <option class="viva" value="31">E-GOLF</option>
+    <option class="viva" value="32">ELR</option>
+    <option class="viva" value="33">EQ FORTWO</option>
+    <option class="viva" value="34">EQB-CLASS</option>
+    <option class="viva" value="35">EQE-CLASS SEDAN</option>
+    <option class="viva" value="36">EQS-CLASS SEDAN</option>
+    <option class="viva" value="37">EQS-CLASS SU</option>
+    <option class="viva" value="38">ES</option>
+    <option class="viva" value="39">E-TRON</option>
+    <option class="viva" value="40">E-TRON GT</option>
+    <option class="viva" value="41">E-TRON SPORTBACK</option>
+    <option class="viva" value="42">EV6</option>
+    <option class="viva" value="43">F-15</option>
+    <option class="viva" value="44">FLYING SPUR</option>
+    <option class="viva" value="45">FOCU</option>
+    <option class="viva" value="46">FORTW</option>
+    <option class="viva" value="47">FORTWO ELECTRIC DRIVE</option>
+    <option class="viva" value="48">FUSION</option>
+    <option class="viva" value="49">G80</option>
+    <option class="viva" value="50">GLC-CLASS</option>
+    <option class="viva" value="51">GLE-CLASS</option>
+    <option class="viva" value="52">GRAND CHEROK</option>
+    <option class="viva" value="53">GV60</option>
+    <option class="viva" value="54">HARDTOP</option>
+    <option class="viva" value="55">I3</option>
+    <option class="viva" value="56">I4</option>
+    <option class="viva" value="57">I8</option>
+    <option class="viva" value="58">ID.4</option>
+    <option class="viva" value="59">I-MIE</option>
+    <option class="viva" value="60">IONIQ</option>
+    <option class="viva" value="61">IONIQ 5</option>
+    <option class="viva" value="62">IONIQ 6 </option>
+    <option class="viva" value="63">I-PACE</option>
+    <option class="viva" value="64">IX</option>
+    <option class="viva" value="65">KARMA</option>
+    <option class="viva" value="66">KONA</option>
+    <option class="viva" value="66">KONA ELECTRIC</option>
+    <option class="viva" value="67">LEAF</option>
+    <option class="viva" value="68">LYRIQ</option>
+    <option class="viva" value="69">MODEL 3</option>
+    <option class="viva" value="70">MODEL S</option>
+    <option class="viva" value="71">MODEL X</option>
+    <option class="viva" value="72">MODEL Y</option>
+    <option class="viva" value="73">MUSTANG MACH-E</option>
+    <option class="viva" value="74">NIRO</option>
+    <option class="viva" value="75">NX</option>
+    <option class="viva" value="76">OPTIMA</option>
+    <option class="viva" value="77">OUTLANDER</option>
+    <option class="viva" value="78">PACIFICA</option>
+    <option class="viva" value="79">PANAME</option>
+    <option class="viva" value="80">PRIUS PLUG-IN</option>
+    <option class="viva" value="81">PRIUS PRIME</option>
+    <option class="viva" value="82">PS2</option>
+    <option class="viva" value="83">Q4</option>
+    <option class="viva" value="84">Q5</option>
+    <option class="viva" value="85">Q4 E</option>
+    <option class="viva" value="86">R1S</option>
+    <option class="viva" value="87">R1T</option>
+    <option class="viva" value="88">RANGE ROVER</option>
+    <option class="viva" value="89">RANGE ROVER SPORT</option>
+    <option class="viva" value="90">RANGER</option>
+    <option class="viva" value="91">RAV4</option>
+    <option class="viva" value="92">RAV4 P</option>
+    <option class="viva" value="93">ROADSTER</option>
+    <option class="viva" value="94">RS E-TRON GT</option>
+    <option class="viva" value="95">RZ 45</option>
+    <option class="viva" value="96">S-10 PICKUP</option>
+    <option class="viva" value="97">S60</option>
+    <option class="viva" value="98">S90</option>
+    <option class="viva" value="99">SANTA FE</option>
+    <option class="viva" value="100">S-CLASS</option>
+    <option class="viva" value="101">SOLTERR</option>
+    <option class="viva" value="102">SONATA/<option>
+    <option class="viva" value="103">SORENTO</option>
+    <option class="viva" value="104">SOUL</option>
+    <option class="viva" value="">SOUL EV</option>
+    <option class="viva" value="4">SPARK</option>
+    <option class="viva" value="4">SPORTAGE</option>
+    <option class="viva" value="4">TAYCAN</option>
+    <option class="viva" value="4">TRANSIT</option>
+    <option class="viva" value="4">TRANSIT CONNECT ELECTRIC</option>
+    <option class="viva" value="4">TUCSON</option>
+    <option class="viva" value="4">V60</option>
+    <option class="viva" value="4">VOLT</option>
+    <option class="viva" value="4">WHEEGO</option>
+    <option class="viva" value="4">WRANGLER</option>
+    <option class="viva" value="4">X3</option>
+    <option class="viva" value="4">X5</option>
+    <option class="viva" value="4">XC40</option>
+    <option class="viva" value="4">XC60</option>
+    <option class="viva" value="4">XC90</option>
+  </select>
+<!-- Model Year List -->
+<select name="model year" id="model year">
+    <option value="0">Model Year</option>
+    <option class="1997" value="1">1997</option>
+    <option class="1998" value="2">1998</option>
+    <option class="1999" value="3">1999</option>
+    <option class="2000" value="4">2000</option>
+    <option class="2002" value="5">2002</option>
+    <option class="2008" value="6">2008</option>
+    <option class="2010" value="7">2010</option>
+    <option class="2011" value="8">2011</option>
+    <option class="2012" value="9">2012</option>
+    <option class="2013" value="10">2012</option>
+    <option class="2014" value="11">2014</option>
+    <option class="2015" value="12">2015</option>
+    <option class="2016" value="13">2016</option>
+    <option class="2017" value="14">2017</option>
+    <option class="2018" value="15">2018</option>
+    <option class="2019" value="16">2019</option>
+    <option class="2020" value="17">2020</option>
+    <option class="2021" value="18">2021</option>
+    <option class="2022" value="19">2022</option>
+    <option class="2023" value="20">2023</option>
+      </select>
+<input type="submit" name="button" id="button" onclick="showURL();" />
+
+<script src="./app_drop_H.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="barChart"></canvas>
